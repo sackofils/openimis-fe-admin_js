@@ -254,30 +254,6 @@ class UserFilter extends Component {
               </Grid>
             }
           />
-          { rights.includes(RIGHT_HEALTHFACILITIES) && (<ControlledField
-              module="admin"
-              id="userFilter.healthFacility"
-              field={
-                <Grid item xs={3} className={classes.item}>
-                  <PublishedComponent
-                    pubRef="location.HealthFacilityPicker"
-                    withNull={true}
-                    value={this.filterValue("healthFacilityId") || ""}
-                    district={selectedDistrict}
-                    onChange={(v) => {
-                      onChangeFilters([
-                        {
-                          id: "healthFacility",
-                          value: v,
-                          filter: v ? `healthFacilityId: ${decodeId(v.id)}` : null,
-                        },
-                      ]);
-                    }}
-                  />
-                </Grid>
-              }
-            />
-          )}
         </Grid>
         <Grid container>
           <Grid item xs={12}>
