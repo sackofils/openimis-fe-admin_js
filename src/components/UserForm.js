@@ -263,8 +263,8 @@ class UserForm extends Component {
             actions={actions}
             HeadPanel={UserMasterPanel}
             Panels={[
-              ...(rights.includes(RIGHT_ENROLMENTOFFICER) ? [EnrolmentOfficerFormPanel] : []),
-              ...(rights.includes(RIGHT_CLAIMADMINISTRATOR) ? [ClaimAdministratorFormPanel] : [])
+              ...(rights.includes(RIGHT_ENROLMENTOFFICER) ? [EnrolmentOfficerFormPanel] : [])
+              // ...(rights.includes(RIGHT_CLAIMADMINISTRATOR) ? [ClaimAdministratorFormPanel] : [])
             ]}
             user={user}
             onEditedChanged={this.onEditedChanged}

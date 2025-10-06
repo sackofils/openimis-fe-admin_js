@@ -244,6 +244,7 @@ const UserMasterPanel = (props) => {
             />
           </Grid>
         )}
+      {/*
       {rights.includes(RIGHT_HEALTHFACILITIES) && (<Grid item xs={4} className={classes.item}>
         <PublishedComponent
           pubRef="location.HealthFacilityPicker"
@@ -256,6 +257,7 @@ const UserMasterPanel = (props) => {
         />
       </Grid>
       )}
+      */}
       <Grid item xs={6} className={classes.item}>
         <PublishedComponent
           pubRef="admin.UserRolesPicker"
