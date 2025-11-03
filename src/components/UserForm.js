@@ -34,6 +34,7 @@ import {
   clearUser,
   fetchUserMutation,
   fetchRegionDistricts,
+  fetchRegionDistrictMunicipalities,
   fetchObligatoryUserFields,
   fetchObligatoryEnrolmentOfficerFields,
   fetchUsernameLength,
@@ -101,6 +102,25 @@ class UserForm extends Component {
             ...prevState.user,
             districts: noDuplicates,
             region: [],
+          },
+        }));
+      }
+    }
+
+    if (prevProps.region_municipalities !== this.props.region_municipalities) {
+      if (this.props.region_municipalities) {
+        const combined = [
+          ...(this.state.user.municipalities ? this.state.user.municipalities : []),
+          ...this.props.region_municipalities,
+        ];
+
+        const noDuplicates = [...new Map(combined.map((x) => [x.uuid, x])).values()];
+
+        this.setState((prevState) => ({
+          user: {
+            ...prevState.user,
+            municipalities: noDuplicates,
+            // region: [],
           },
         }));
       }
@@ -291,6 +311,7 @@ const mapStateToProps = (state) => ({
   mutation: state.admin.mutation,
   user: state.admin.user,
   region_districts: state.admin.reg_dst,
+  region_municipalities: state.admin.reg_mun,
   confirmed: state.core.confirmed,
   obligatoryUserFields: state.admin.obligatory_user_fields,
   obligatoryEoFields: state.admin.obligatory_eo_fields,
@@ -309,6 +330,7 @@ const mapDispatchToProps = (dispatch) =>
       clearUser,
       fetchUserMutation,
       fetchRegionDistricts,
+      fetchRegionDistrictMunicipalities,
       fetchObligatoryUserFields,
       fetchObligatoryEnrolmentOfficerFields,
       fetchUsernameLength,

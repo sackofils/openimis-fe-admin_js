@@ -224,7 +224,9 @@ export function fetchUser(mm, userId, clientMutationId) {
               validityFrom
               validityTo
               email
+              code
               districts: userdistrictSet { location { id name code uuid parent { id code uuid name }}}
+              municipalities: usermunicipalitySet { location { id name code uuid parent { id code uuid name }}}
             }
             claimAdmin{
               id
@@ -279,6 +281,26 @@ export function fetchRegionDistricts(parent) {
     "clientMutationId",
   ]);
   return graphql(payload, `LOCATION_REGION_DISTRICTS`);
+}
+
+export function fetchRegionDistrictMunicipalities(parent) {
+  const filters = [`type: "W"`];
+  if (parent) {
+    filters.push(`parent_Uuid: "${parent.uuid}"`);
+  }
+  const payload = formatPageQuery("locations", filters, [
+    "id",
+    "uuid",
+    "type",
+    "code",
+    "name",
+    "malePopulation",
+    "femalePopulation",
+    "otherPopulation",
+    "families",
+    "clientMutationId",
+  ]);
+  return graphql(payload, `LOCATION_REGION_DISTRICTS_MUNICIPALITIES`);
 }
 
 export function fetchDataFromDistrict(districtUuids) {

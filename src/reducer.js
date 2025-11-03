@@ -55,6 +55,7 @@ function reducer(
     submittingMutation: false,
     mutation: {},
     reg_dst: [],
+    reg_mun: [],
     dst_mun_vil: [],
     obligatory_user_fields: {},
     obligatory_eo_fields: {},
@@ -253,6 +254,30 @@ function reducer(
         ...state,
         reg_dst: [],
       };
+    case "LOCATION_REGION_DISTRICTS_MUNICIPALITIES_REQ":
+      return {
+        ...state,
+        fetching_reg_mun: true,
+        fetched_reg_mun: false,
+        reg_mun: [],
+        errorL2s: null,
+      };
+    case "LOCATION_REGION_DISTRICTS_MUNICIPALITIES_RESP":
+      return {
+        ...state,
+        fetching_reg_mun: false,
+        fetched_reg_mun: true,
+        reg_mun: parseData(action.payload.data.locations || action.payload.data.locationsStr),
+        errorL2s: formatGraphQLError(action.payload),
+      };
+    case "LOCATION_REGION_DISTRICTS_MUNICIPALITIES_ERR":
+      return {
+        ...state,
+        fetching_reg_mun: false,
+        errorL2s: formatServerError(action.payload),
+      };
+    case "LOCATION_REGION_DISTRICTS_MUNICIPALITIES_CLEAR":
+      return { ...state, reg_mun: [] };
     case "LOCATION_DISTRICT_DATA_REQ":
       return {
         ...state,

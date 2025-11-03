@@ -48,6 +48,13 @@ export const mapQueriesUserToStore = (u) => {
     u.language = u.iUser.languageId;
     u.roles = u.iUser.roles;
     u.districts = u.iUser.districts.map((d) => d.location);
+    u.code = u.iUser.code || "";
+
+    if (u.iUser.municipalities) {
+      u.municipalities = u.iUser.municipalities.map((m) => m.location);
+    } else {
+      u.municipalities = [];
+    }
   }
   if (u.claimAdmin) {
     u.hasLogin = u.hasLogin || u.claimAdmin.hasLogin;
@@ -87,6 +94,8 @@ export const mapUserValuesToInput = (values) => {
     password: values.password,
     healthFacilityId: values.healthFacility ? decodeId(values.healthFacility.id) : null,
     districts: values.districts.map((d) => decodeId(d.id)),
+    municipalities: values.municipalities?.map((m) => decodeId(m.id)) ?? [],
+    code: values.code,
     locationId: values.location ? decodeId(values.location.id) : null,
     language: values.language,
     roles: values.roles.map((r) => decodeId(r.id)),

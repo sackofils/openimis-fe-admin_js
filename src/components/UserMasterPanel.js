@@ -199,6 +199,17 @@ const UserMasterPanel = (props) => {
           {renderLastNameField(edited, classes, readOnly)}
         </>
       )}
+      <Grid item xs={4} className={classes.item}>
+        <TextInput
+          module="admin"
+          type="text"
+          label="user.code"
+          required={false}
+          readOnly={readOnly}
+          value={edited?.code ?? ""}
+          onChange={(code) => onEditedChanged({ ...edited, code })}
+        />
+      </Grid>
       {!(
         obligatoryUserFields?.email == "H" ||
         (edited.userTypes?.includes(ENROLMENT_OFFICER_USER_TYPE) && obligatoryEOFields?.email == "H")
@@ -258,7 +269,7 @@ const UserMasterPanel = (props) => {
       </Grid>
       )}
       */}
-      <Grid item xs={6} className={classes.item}>
+      <Grid item xs={3} className={classes.item}>
         <PublishedComponent
           pubRef="admin.UserRolesPicker"
           required
@@ -268,7 +279,7 @@ const UserMasterPanel = (props) => {
           onChange={(roles) => onEditedChanged({ ...edited, roles })}
         />
       </Grid>
-      <Grid item xs={2} className={classes.item}>
+      <Grid item xs={3} className={classes.item}>
         <PublishedComponent
           pubRef="location.LocationPicker"
           locationLevel={0}
@@ -278,10 +289,10 @@ const UserMasterPanel = (props) => {
           multiple
           withLabel
           label={formatMessage("user.regions")}
-          restrictedOptions
+
         />
       </Grid>
-      <Grid item xs={4} className={classes.item}>
+      <Grid item xs={3} className={classes.item}>
         <PublishedComponent
           pubRef="location.LocationPicker"
           locationLevel={1}
@@ -293,6 +304,19 @@ const UserMasterPanel = (props) => {
           withLabel
           label={formatMessage("user.districts")}
           restrictedOptions
+        />
+      </Grid>
+      <Grid item xs={3} className={classes.item}>
+        <PublishedComponent
+          pubRef="location.LocationPicker"
+          locationLevel={2}
+          parentLocations={Array.isArray(edited?.districts) ? edited.districts.map(d => d.uuid) : []}
+          value={edited?.municipalities ?? []}
+          onChange={(municipalities) => onEditedChanged({ ...edited, municipalities })}
+          readOnly={readOnly}
+          multiple
+          withLabel
+          label={formatMessage("user.municipalities")}
         />
       </Grid>
 
